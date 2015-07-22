@@ -1,0 +1,84 @@
+<extend name="template/base_index" />
+
+
+<block name="area_header">
+<script type="text/javascript" src="__CDN__/jquery-validation/1.13.1/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="__CDN__/jquery-validation/1.13.1/localization/messages_zh.min.js"></script>
+
+
+</block>
+
+<block name="area_body">
+	{:W('Menus/topbar')}
+	<div class="admin-main container-fluid">
+		{:W('Menus/left')}
+		<div class="admin-main-content">
+			{:W('Menus/breadcrumb')}
+		
+			<!-- 带验证 form -->
+			<form class="form-horizontal well validateForm">
+				<fieldset>
+					<legend>
+						</legend>
+					<div class="form-group">
+						<label for="inputtitle" class="col-md-2 col-lg-2 control-label">宝箱名称</label>
+						<input type="hidden" name="id" value="{$box['id']}">
+						<div class="col-md-10 col-lg-10">
+							<input type="text" class="required form-control input-short" name="boxname" value="{$box['name']}" id="inputtitle" placeholder="{:L('PLACEHOLDER_TITLE')}">
+							<div class="help-block">(请输入宝箱名称)</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputtitle" class="col-md-2 col-lg-2 control-label">宝箱描述</label>
+						<div class="col-md-10 col-lg-10">
+                            <textarea name="boxdesc" rows="5"  class=" form-control input-normal">{$box.desc}</textarea>
+                        </div>
+					</div>
+					<div class="form-group  am-hide">
+						<label for="inputtitle" class="col-md-2 col-lg-2 control-label">宝箱类型</label>
+						<div class="col-md-10 col-lg-10">
+							<select name="typeid" class="form-control input-normal select2">
+								<option>请选择宝箱类型</option>
+								<volist name='boxtypes' id='a'>
+									<option <eq name="box['dtree_boxid']" value="$a['id']">selected="selected"</eq> value="{$a.id}">{$a.name}</option>
+							
+								</volist>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputtitle" class="col-md-2 col-lg-2 control-label">出现的概率</label>
+						<div class="col-md-10 col-lg-10">							
+							<input type="text" class="required form-control input-short" value="{$box['probability']}" name="gailv" id="inputtitle" placeholder="请输入宝箱出现的概率">
+							<div class="help-block">(概率：1代表100%；0.1代表10%....)</div>
+							
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputpost_excerpt" class="col-md-2 col-lg-2 control-label">备注</label>
+						<div class="col-md-10 col-lg-10">
+							<textarea name="notes" rows="5"  class=" form-control input-normal">{$box['notes']}</textarea>
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<label for="btns" class="col-md-2 col-lg-2 control-label">&nbsp;</label>
+						<div class="col-lg-10 col-md-10">
+							<a target-form="validateForm" onclick="return getData();" class="ajax-post btn btn-primary" href="{:U('Admin/Game/edit')}" autofocus="autofocus"><i class="fa fa-save"></i> {:L('BTN_SAVE')}</a>
+							<a class="btn btn-default" href="{:U('Admin/Game/openbox')}"><i class="fa fa-reply"></i>返回</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+			<!-- form -->
+
+		</div>
+		<!-- END admin-main-content -->
+	</div>
+		<!-- END admin-main-->
+</block>
+
+<block name="area_footer">
+
+</block>

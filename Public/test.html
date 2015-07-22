@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://libs.useso.com/js/jquery/2.1.1/jquery.js" ></script>
+</head>
+
+<body>
+<div class="container">
+
+</div>
+<script type="text/javascript">
+
+
+
+    function test(){
+        var cnt = 3;
+
+        for(var j=0;j< (window.allPrize.length);j++){
+            window.allPrize[j].cntTest=0;
+        }
+
+        for(var i=0;i<cnt;i++){
+
+            $.ajax({
+                url:"#",
+                type:"get",
+                context:window,
+                cache:false,
+            }).done(function(data){
+                data = { status:1,info:{ id:"6" } };
+
+                if(data.status == 1){
+                    for(var i=0;i< (this.allPrize.length);i++){
+                        if(data.info.id == this.allPrize[i].id){
+                            this.allPrize[i].cntTest++;
+                            break;
+                        }
+                    }
+                }
+
+            });
+
+        }
+        console.log(window.allPrize);
+        showResult(window.allPrize);
+    }
+
+    function showResult(result){
+        console.log(result);
+
+        $(".container").empty();
+
+        for(var i=0;i< (result.length);i++){
+//            var cnt = result[i]['cntTest'].toString();
+            var cnt = result[i].cntTest.toString();
+            var $p = $("<p></p>").text('id:'+result[i]['id']+' , name:'+result[i].name +' , PROP:'+result[i].probability + ';cnt:'+cnt);
+            $(".container").append($p);
+        }
+
+    }
+
+    window.allPrize =  JSON.parse('[{"id":"6","name":"jack","probability":"30.00"},{"id":"7","name":"boom","probability":"25.00"},{"id":"4","name":"\u8d22\u7269A","probability":"10.00"},{"id":"1","name":"jonhdddd","probability":"0.22"}]');
+    $(function(){
+        test();
+    })
+</script>
+</body>
+</html>
